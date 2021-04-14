@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="Pokedex" content="consulta de detalles de pokemones mediante pokedex usando API https://pokeapi.co/api/v2/pokemon" />
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
+    <!-- csnvas JS Jquery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/jquery.canvasjs.min.js"></script>
+
+    <!-- Resources Amcharts (graficos) -->
+    <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/themes/dark.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+
+    <!--Acá irán las fuentes consultadas de google fonts-->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-alpha1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Reem+Kufi&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Englebert&display=swap" rel="stylesheet">
+    <!-- Archivo de estilos css-->
+    <link rel="stylesheet" href="css/estilo.css">
+    <title>Pokedex</title>
+</head>
+
+<body>
+    <!--Navbar agregado-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-verde fixed-top">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto menu">
+                    <li class="nav-item">
+                        <a id="itemPokedexRetro" class="nav-link" href="#">Pokedex</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="itemPokedex" class="nav-link" href="#">Pokedex Retro</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://www.pokemon.com/">Pagina oficial Pokemon</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contacto</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Acá va el banner-->
+    <header class="container-fluid hero text-right text-light pt-5 mt-5 col-md-7 col-sm-12 ">
+        <div class="container ">
+        </div>
+    </header>
+    <!-- -seccion con el formulario-->
+    <section class="container  secFormularioBusqueda col-md-7 col-sm-12">
+        <form id="formBusqueda" class="form-inline formularioBusqueda py-3 letraBlanca">
+            <div class=" row">
+                <p class="col-md-6 mx-sm-12 mb-0 ">Busca tu pokemon por su número o nombre</p>
+            </div>
+            <div class=" row">
+                <div class="form-group col-md-4 mx-sm-6 mb-2">
+                    <label for="inputBuscaPokemon" id="labelBuscaPokemon" class="sr-only">número pokemon</label>
+                    <input type="text" class="form-control" id="inputBuscaPokemon"
+                        placeholder="número o nombre pokemon">
+                </div>
+                <button type="submit" id="botonBuscar" class="col-md-1 mx-sm-4 btn btn-primary mb-2"><i
+                        class="fas fa-search"></i></button>
+
+                <div class="custom-control custom-switch form-group col-md-5 mx-sm-12 pl-2">
+                    <input type="checkbox" class="custom-control-input imagenCheck" id="customSwitch1" checked>
+                    <label class="custom-control-label" for="customSwitch1">dream world</label>
+                </div>
+            </div>
+
+            <div class=" row">
+                <p class="col-md-6 mx-sm-12 mb-0 ">Seleccione generacion</p>
+            </div>
+            <div class=" row">
+                <div class="form-group col-md-4 mx-sm-6 mb-2">
+                    <select id="opcionRegion" class="custom-select " aria-labelledby="btnGroupDrop1">
+                        <option selected>Elige...</option>
+                        <!-- <option value="1">1. Numeros de 0 a n</option>-->
+
+                    </select>
+                </div>
+                <div class="custom-control custom-switch form-group col-md-5 mx-sm-12 pl-2">
+                    <input type="checkbox" class="custom-control-input musicaCheck" id="customSwitch2">
+                    <label class="custom-control-label" for="customSwitch2"><i
+                            class="fas fa-music"></i>&nbsp;&nbsp;off/on</label>
+                    <audio id="musicaPokemon" loop>
+                        <source src="sound/1.mp3" type="audio/mpeg">
+                    </audio>
+                    </iframe>
+                </div>
+            </div>
+
+        </form>
+    </section>
+
+
+    <!-- Seccion con el mazo de cartas con los poquemones-->
+    <section class="container my-5">
+        <div class=" text-center results resultadosBusqueda">
+            <div class="text-center results">
+                <div id="mazo" class="card-deck col-md-12">
+                    <!-- en esta parte del Dom vamos a setear las row y card mediantes javascript y jquery-->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div id="detallePokemon" class="container">
+            <div class="row">
+                <div id="info" class="col-sm-12 col-md-6"></div>
+                <div id="graficaDiv" class="col-sm-12 col-md-6"></div>
+            </div>
+        </div>
+    </section>
+
+    <!--acá en este div vamos a setear por css (despierto) y luego jquery (dormido) los snorlax que van a hacer subir al principio de la pagina-->
+    <div class="ir-arriba"></div>
+
+    <!--footer -->
+    <footer class="bg-dark text-center text-light p-3 mt-5">
+        <p> Pokedex 2020.</p>
+        <a class="pieAutor" href="https://github.com/GermanPinto">Repositorio GitHub del autor (Germán Pinto).</a>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="js/main.js"></script>
+</body>
+
+
+</html>
